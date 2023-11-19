@@ -21,7 +21,7 @@ CREATE TABLE reservations(
 );
 CREATE TABLE salles(
 	ID SERIAL PRIMARY KEY ,
-	disponible VARCHAR(5),
+	disponible BOOLEAN,
 	RESERVATION_ID INT ,
 	FOREIGN KEY(RESERVATION_ID) REFERENCES reservations(id)
 );
