@@ -87,19 +87,19 @@ INSERT INTO salles (disponible,RESERVATION_ID)
 VALUES ('FALSE',5);
 -- Insertion des id salles dans reservations
 UPDATE reservations
-SET SALLE_ID='1'
+SET SALLE_ID=1
 WHERE id=1;
 UPDATE reservations
-SET SALLE_ID='3'
+SET SALLE_ID=3
 WHERE id=2;
 UPDATE reservations
-SET SALLE_ID='5'
+SET SALLE_ID=5
 WHERE id=3;
 UPDATE reservations
-SET SALLE_ID='7'
+SET SALLE_ID=7
 WHERE id=4;
 UPDATE reservations
-SET SALLE_ID='9'
+SET SALLE_ID=9
 WHERE id=5;
 -- Insertion des donnees equipements
 INSERT INTO equipements (libel,disponible,RESERVATION_ID)
@@ -116,13 +116,13 @@ INSERT INTO equipements (libel,disponible,RESERVATION_ID)
 VALUES ('scratch pads','TRUE',NULL);
 -- Insertion des id equipement dans reservations
 UPDATE reservations
-SET EQUIPEMENT_ID='1'
+SET EQUIPEMENT_ID=1
 WHERE id=1;
 UPDATE reservations
-SET EQUIPEMENT_ID='2'
+SET EQUIPEMENT_ID=2
 WHERE id=4;
 UPDATE reservations
-SET EQUIPEMENT_ID='3'
+SET EQUIPEMENT_ID=3
 WHERE id=5;
 -- Liste des employes 
 SELECT *
@@ -149,8 +149,7 @@ SELECT *
 from employes
 WHERE sex = 'M';
 --liste des employes par leur nom complet
-SELECT   
-concat (prenom,' ', nom) AS nom_complet
+SELECT   concat (prenom,' ', nom) AS nom_complet
 FROM employes;
 --liste des reservations par ordre chronologique
 SELECT *
