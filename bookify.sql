@@ -21,14 +21,14 @@ CREATE TABLE reservations(
 );
 CREATE TABLE salles(
 	ID SERIAL PRIMARY KEY ,
-	disponibilite VARCHAR(5),
+	disponible VARCHAR(5),
 	RESERVATION_ID INT ,
 	FOREIGN KEY(RESERVATION_ID) REFERENCES reservations(id)
 );
 CREATE TABLE equipements(
 	ID SERIAL PRIMARY KEY ,
 	libel VARCHAR(20) NOT NULL,
-	disponibilite VARCHAR(5),
+	disponible BOOLEAN,
 	RESERVATION_ID INT ,
 	FOREIGN KEY(RESERVATION_ID) REFERENCES reservations(id)
 );
@@ -67,24 +67,24 @@ VALUES ('27/11/2023','09:00','reunion',7);
 INSERT INTO reservations (jour,horaire,sujet,EMPLOYE_ID)
 VALUES ('05/12/2023','10:30','reunion',8);
 -- Insertion des donnees salles
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('NON',1);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('OUI',NULL);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('NON',2);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('OUI',NULL);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('NON',3);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('OUI',NULL);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('NON',4);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('OUI',NULL);
-INSERT INTO salles (disponibilite,RESERVATION_ID)
-VALUES ('NON',5);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('FALSE',1);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('TRUE',NULL);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('FALSE',2);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('TRUE',NULL);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('FALSE',3);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('TRUE',NULL);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('FALSE',4);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('TRUE',NULL);
+INSERT INTO salles (disponible,RESERVATION_ID)
+VALUES ('FALSE',5);
 -- Insertion des id salles dans reservations
 UPDATE reservations
 SET SALLE_ID='1'
@@ -102,18 +102,18 @@ UPDATE reservations
 SET SALLE_ID='9'
 WHERE id=5;
 -- Insertion des donnees equipements
-INSERT INTO equipements (libel,disponibilite,RESERVATION_ID)
-VALUES ('imprimante','NON',1);
-INSERT INTO equipements (libel,disponibilite,RESERVATION_ID)
-VALUES ('tableau','NON',2);
-INSERT INTO equipements (libel,disponibilite,RESERVATION_ID)
-VALUES ('projecteur','NON',3);
-INSERT INTO equipements (libel,disponibilite,RESERVATION_ID)
-VALUES ('Cable HDMI','OUI',NULL);
-INSERT INTO equipements (libel,disponibilite,RESERVATION_ID)
-VALUES ('Fitres','OUI',NULL);
-INSERT INTO equipements (libel,disponibilite,RESERVATION_ID)
-VALUES ('scratch pads','OUI',NULL);
+INSERT INTO equipements (libel,disponible,RESERVATION_ID)
+VALUES ('imprimante','FALSE',1);
+INSERT INTO equipements (libel,disponible,RESERVATION_ID)
+VALUES ('tableau','FALSE',2);
+INSERT INTO equipements (libel,disponible,RESERVATION_ID)
+VALUES ('projecteur','FALSE',3);
+INSERT INTO equipements (libel,disponible,RESERVATION_ID)
+VALUES ('Cable HDMI','TRUE',NULL);
+INSERT INTO equipements (libel,disponible,RESERVATION_ID)
+VALUES ('Fitres','TRUE',NULL);
+INSERT INTO equipements (libel,disponible,RESERVATION_ID)
+VALUES ('scratch pads','TRUE',NULL);
 -- Insertion des id equipement dans reservations
 UPDATE reservations
 SET EQUIPEMENT_ID='1'
@@ -152,13 +152,13 @@ WHERE sex = 'M';
 SELECT   
 concat (prenom,' ', nom) AS nom_complet
 FROM employes;
---liste des reservations des plus recentes
+--liste des reservations par ordre chronologique
 SELECT *
 from reservations
-ORDER BY jour DESC; 
+ORDER BY jour ASC; 
 -- nombre des employees males
 SELECT COUNT (id)
-FROM employes;
+FROM employes
 WHERE sex='M';
 -- liste des prenoms des employes et des libels d equipements
 SELECT prenom 
@@ -173,6 +173,8 @@ JOIN reservations
 ON employes.ID=reservations.EMPLOYE_ID
 LEFT JOIN equipements
 ON reservations.id=equipements.RESERVATION_ID;
-
-
+-- changer date reservation
+UPDATE reservations
+SET jour='21/11/2023'
+WHERE id=1;
 
